@@ -4,6 +4,8 @@ import os
 import requests
 import zipfile
 from io import BytesIO
+import shutil
+
 
 load_dotenv()
 
@@ -195,7 +197,7 @@ def main():
         create_index(conn)
         conn.close()
         
-    os.rmdir(extracted_folder_path)
+    shutil.rmtree(extracted_folder_path)
         
 
 if __name__ == "__main__":
