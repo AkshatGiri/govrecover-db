@@ -179,22 +179,23 @@ def download_and_unzip(url: str, extract_to: str ='.'):
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    download_url = "https://dpupd.sco.ca.gov/04_From_500_To_Beyond.zip"
+    download_url = "https://dpupd.sco.ca.gov/00_All_Records.zip"
     extract_to_path = ROOT_DIR
     
     download_and_unzip(download_url, extract_to_path)
     
-    extracted_folder_path = os.path.join(ROOT_DIR, "04_From_500_To_Beyond")
-    file_path = os.path.join(extracted_folder_path, "From_500_To_Beyond__File_4_of_4.csv")
+    extracted_folder_path = os.path.join(ROOT_DIR, "00_All_Records")
+    file_path = os.path.join(extracted_folder_path, "All_Records__File_1_of_1.csv ")
     
     conn = connect_to_db()
     if conn is not None:
         purge_table(conn)
         create_table(conn)
-        csv_file_path = file_path
-        import_csv_to_db_with_copy_expert(conn, csv_file_path)
-        # create_index(conn)
+        import_csv_to_db_with_copy_expert(conn, file_path)
+        create_index(conn)
         conn.close()
+        
+    os.rmdir(extracted_folder_path)
         
 
 if __name__ == "__main__":
