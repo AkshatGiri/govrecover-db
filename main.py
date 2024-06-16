@@ -185,7 +185,7 @@ def main():
     download_and_unzip(download_url, extract_to_path)
     
     extracted_folder_path = os.path.join(ROOT_DIR, "00_All_Records")
-    file_path = os.path.join(extracted_folder_path, "All_Records__File_1_of_1.csv ")
+    file_path = os.path.join(extracted_folder_path, "All_Records__File_1_of_1.csv")
     
     conn = connect_to_db()
     if conn is not None:
