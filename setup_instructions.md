@@ -96,4 +96,100 @@ DB_HOST = { public server ip address }
 DB_PORT=5432
 ```
 
-## TODO: Setup the script
+### Creat a new database
+
+```sql
+CREATE DATABASE govrecover;
+```
+
+## Setup the script
+
+### Installing the dependencies
+
+The server probably doesn't come with git installed so let's do that.
+
+```bash
+sudo apt install git
+```
+
+Clone this repo
+
+```bash
+git clone https://github.com/AkshatGiri/govrecover-db.git
+```
+
+There should be python3 installed on the server but we might need to install pip3.
+
+```bash
+sudo apt install python3-pip
+```
+
+Change directory to the repo
+
+```bash
+cd govrecover-db
+```
+
+Install the dependencies
+
+```bash
+pip3 install -r requirements.txt
+```
+
+### Add a .env file
+
+```
+DB_NAME=govrecover
+DB_USER=postgres
+DB_PASSWORD=mynewpassword
+DB_HOST={ public server ip address }
+DB_PORT=5432
+```
+
+## Run the script
+
+```bash
+python3 main.py
+```
+
+Now let it do it's thing. Should take about 15 minutes to finish.
+
+## Setup the automation
+
+The list is realeased every thursday morning. So we want the python script to fire off around 8am every thursday.
+
+Make the script executable
+
+```bash
+chmod +x main.py
+```
+
+We're going to use crontab to make the cronjob
+
+```bash
+crontab -e
+```
+
+This will open a a file in vim or nano based on what you selected.
+
+Add the following line to the file.
+
+```
+0 15 * * 4 /root/govrecover-db/main.py >> /root/govrecover-db/logs.log 2>&1
+```
+
+Explanation of the line above
+
+```
+0 - minute
+15 - hour ( 3pm which is 8am PST, there's some weirdness around the daylight savings, so might have to switch to 16 when daylight saving is on or off idk. )
+* - day of the month
+* - month
+4 - day of the week ( 0 is sunday, 4 is thursday )
+
+/root/govrecover-db/main.py - the script to run
+
+>> /root/govrecover-db/logs.log - The file to save logs to.
+
+2>&1 - Redirects the stderr to stdout so that we can save it to the logs file.
+```
