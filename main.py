@@ -7,6 +7,7 @@ import requests
 import zipfile
 from io import BytesIO
 import shutil
+from datetime import datetime
 
 
 load_dotenv()
@@ -183,6 +184,10 @@ def download_and_unzip(url: str, extract_to: str ='.'):
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def main():
+    print("=========================")
+    print(f"Start Time: {datetime.now()}")
+    print("=========================")
+    
     download_url = "https://dpupd.sco.ca.gov/00_All_Records.zip"
     extract_to_path = ROOT_DIR
     
@@ -200,6 +205,9 @@ def main():
         conn.close()
         
     shutil.rmtree(extracted_folder_path)
+    print("Temporary folder deleted.")
+    print(f"End Time: {datetime.now()}")
+    print("=========================")
         
 
 if __name__ == "__main__":
