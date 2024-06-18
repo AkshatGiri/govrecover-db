@@ -55,7 +55,7 @@ def create_table(conn):
               PROPERTY_ID BIGINT,
               PROPERTY_TYPE TEXT,
               CASH_REPORTED NUMERIC(10, 2),
-              SHARES_REPORTED NUMERIC(10, 2),
+              SHARES_REPORTED NUMERIC(14, 6),
               NAME_OF_SECURITIES_REPORTED TEXT,
               NO_OF_OWNERS TEXT,
               OWNER_NAME TEXT,
