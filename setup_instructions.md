@@ -142,7 +142,7 @@ pip3 install -r requirements.txt
 DB_NAME=govrecover
 DB_USER=postgres
 DB_PASSWORD=mynewpassword
-DB_HOST={ public server ip address }
+DB_HOST=localhost
 DB_PORT=5432
 ```
 
