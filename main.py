@@ -56,7 +56,6 @@ def create_table(conn):
               PROPERTY_TYPE TEXT,
               CASH_REPORTED NUMERIC(10, 2),
               SHARES_REPORTED NUMERIC(14, 6),
-              NAME_OF_SECURITIES_REPORTED TEXT,
               NO_OF_OWNERS TEXT,
               OWNER_NAME TEXT,
               OWNER_STREET_1 TEXT,
@@ -66,17 +65,13 @@ def create_table(conn):
               OWNER_STATE CHAR(2),
               OWNER_ZIP VARCHAR(10),
               OWNER_COUNTRY_CODE CHAR(3),
-              CURRENT_CASH_BALANCE NUMERIC(10, 2),
-              NUMBER_OF_PENDING_CLAIMS INTEGER,
-              NUMBER_OF_PAID_CLAIMS INTEGER,
               HOLDER_NAME TEXT,
               HOLDER_STREET_1 TEXT,
               HOLDER_STREET_2 TEXT,
               HOLDER_STREET_3 TEXT,
               HOLDER_CITY TEXT,
               HOLDER_STATE CHAR(2),
-              HOLDER_ZIP VARCHAR(10),
-              CUSIP TEXT
+              HOLDER_ZIP VARCHAR(10)
           );
         """)
         conn.commit()
@@ -120,7 +115,6 @@ def import_csv_to_db_with_copy_expert(conn, file_path):
         PROPERTY_TYPE, 
         CASH_REPORTED, 
         SHARES_REPORTED, 
-        NAME_OF_SECURITIES_REPORTED, 
         NO_OF_OWNERS, 
         OWNER_NAME, 
         OWNER_STREET_1, 
@@ -130,17 +124,13 @@ def import_csv_to_db_with_copy_expert(conn, file_path):
         OWNER_STATE, 
         OWNER_ZIP, 
         OWNER_COUNTRY_CODE, 
-        CURRENT_CASH_BALANCE, 
-        NUMBER_OF_PENDING_CLAIMS, 
-        NUMBER_OF_PAID_CLAIMS, 
         HOLDER_NAME, 
         HOLDER_STREET_1, 
         HOLDER_STREET_2, 
         HOLDER_STREET_3, 
         HOLDER_CITY, 
         HOLDER_STATE, 
-        HOLDER_ZIP, 
-        CUSIP
+        HOLDER_ZIP
     ) FROM STDIN WITH CSV HEADER DELIMITER ',' QUOTE '"' ESCAPE '"';
     """
     with open(file_path, 'r', encoding='ISO-8859-1', errors='replace') as f:
